@@ -1,0 +1,11 @@
+out
+dist
+node_modules
+.vscode-test/
+*.vsix
+.vscode/
+.vscode-test/
+.vscode-test.mjs
+.vscodeignore
+.vscode/*
+.vscode-test.mjs
