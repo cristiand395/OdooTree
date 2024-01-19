@@ -3,6 +3,8 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import ViewTree from './ViewTree';
+
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -18,49 +20,42 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('odootree.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from odootree!');
-		const activeEditor = vscode.window.activeTextEditor;
+		ViewTree();
+		// const activeEditor = vscode.window.activeTextEditor;
 
-		if (activeEditor) {
-			const currentFilePath = activeEditor.document.uri.fsPath;
-			const currentDirectory = path.dirname(currentFilePath);
+		// if (activeEditor) {
+		// 	const currentFilePath = activeEditor.document.uri.fsPath;
+		// 	const currentDirectory = path.dirname(currentFilePath);
 
-			// Abrir el explorador de archivos del sistema en el directorio actual
-			if (fs.existsSync(currentDirectory)) {
-				console.log(`El directorio ${currentDirectory} existe.`);
-				vscode.workspace.openTextDocument(activeEditor.document.uri).then(doc => {
-					vscode.window.showTextDocument(doc);
-					vscode.window.showInformationMessage(`Nombre del archivo: ${path.basename(currentFilePath)}`);
-				});
-				// Crear y mostrar un panel webview
-				const panel = vscode.window.createWebviewPanel(
-					'informacionArchivo',
-					'Información del Archivo',
-					vscode.ViewColumn.One,
-					{}
-				);
+		// 	// Abrir el explorador de archivos del sistema en el directorio actual
+		// 	if (fs.existsSync(currentDirectory)) {
+		// 		console.log(`El directorio ${currentDirectory} existe.`);
+		// 		vscode.workspace.openTextDocument(activeEditor.document.uri)
+		// 			.then(doc => {
+		// 				vscode.window.showTextDocument(doc);
+		// 				vscode.window.showInformationMessage(`Current files name: ${path.basename(currentFilePath)}`);
+		// 			});
+		// 		// Crear y mostrar un panel webview
+		// 		const panel = vscode.window.createWebviewPanel(
+		// 			'odootreeview',
+		// 			'Odoo Tree View',
+		// 			vscode.ViewColumn.One,
+		// 			{}
+		// 		);
 
-				// Cargar contenido HTML en el panel webview
-				panel.webview.html = getWebviewContent(path.basename(currentFilePath));
-			} else {
-				console.log(`El directorio ${currentDirectory} no existe.`);
-				vscode.window.showErrorMessage(`El directorio ${currentDirectory} no existe.`);
-			}
-		} else {
-			vscode.window.showErrorMessage('No hay un archivo activo.');
-		}
+		// 		// Cargar contenido HTML en el panel webview
+		// 		panel.webview.html = getWebviewContent(path.basename(currentFilePath));
+		// 	} else {
+		// 		console.log(`The current file ${currentDirectory} does not exist.`);
+		// 		vscode.window.showErrorMessage(`The current file ${currentDirectory} does not exist.`);
+		// 	}
+		// } else {
+		// 	vscode.window.showErrorMessage('No hay un archivo activo.');
+		// }
 	});
 
 	context.subscriptions.push(disposable);
 }
-function getWebviewContent(fileName: string): string {
-	return `
-        <html>
-        <body>
-            <h1>Información del Archivo</h1>
-            <p>Nombre del Archivo: ${fileName}</p>
-        </body>
-        </html>`;
-}
+
 // This method is called when your extension is deactivated
 export function deactivate() { }

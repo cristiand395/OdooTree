@@ -12,7 +12,11 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "informacion",
+        "nosources",
         "odootree",
-        "odootreeview"
+        "odootreeview",
+        "parseado",
+        "parsear",
+        "vscodeignore"
     ]
 }
