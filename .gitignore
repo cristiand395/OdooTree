@@ -9,3 +9,4 @@ node_modules
 .vscodeignore
 .vscode/*
 .vscode-test.mjs
+.vscode/settings.json
